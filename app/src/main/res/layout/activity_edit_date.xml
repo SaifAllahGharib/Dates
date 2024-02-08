@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Dark"
+    tools:context=".secretary.EditDate">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bold"
+                android:text="@string/editDate"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <RelativeLayout
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/textinputstyle"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/date" />
+
+                <TextView
+                    android:id="@+id/textDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/Date"
+                    android:textColor="@color/gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textinputstyle"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/date" />
+
+                <TextView
+                    android:id="@+id/textTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/time"
+                    android:textColor="@color/gray" />
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                app:endIconTint="@color/mainColor"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/sideoutside"
+                app:startIconTint="@color/mainColor"
+                tools:ignore="RtlHardcoded">
+
+                <AutoCompleteTextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textinputstyle"
+                    android:fontFamily="@font/regular"
+                    android:hint="النوع"
+                    android:inputType="none"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/topic"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:theme="@style/CustomEditText"
+                app:boxStrokeErrorColor="@color/red"
+                app:cursorColor="@color/mainColor"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/topic"
+                app:startIconTint="@color/mainColor"
+                tools:ignore="RtlHardcoded">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textinputstyle"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/topic"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:theme="@style/CustomEditText"
+                app:boxStrokeErrorColor="@color/red"
+                app:cursorColor="@color/mainColor"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/address"
+                app:startIconTint="@color/mainColor"
+                tools:ignore="RtlHardcoded">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textinputstyle"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/address"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/person"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:theme="@style/CustomEditText"
+                app:boxStrokeErrorColor="@color/red"
+                app:cursorColor="@color/mainColor"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/person"
+                app:startIconTint="@color/mainColor"
+                tools:ignore="RtlHardcoded">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textinputstyle"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/personOrSide"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                app:endIconTint="@color/mainColor"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/status"
+                app:startIconTint="@color/mainColor"
+                tools:ignore="RtlHardcoded">
+
+                <AutoCompleteTextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textinputstyle"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/status"
+                    android:inputType="none"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEdit"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/mainColor"
+                    android:fontFamily="@font/medium"
+                    android:text="@string/add"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditDis"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/btnColorDis"
+                    android:enabled="false"
+                    android:fontFamily="@font/medium"
+                    android:text="@string/edit"
+                    android:textColor="@color/white" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/prog"
+        android:visibility="gone"
+        android:background="#41A6CDFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="35dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingVertical="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textError"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/white"
+        android:text="@string/youSignout"
+        android:textSize="18sp"
+        android:fontFamily="@font/medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOk"
+            android:text="@string/yes"
+            android:backgroundTint="@color/mainColor"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/medium"
+            android:textColor="@color/white"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNo"
+            android:text="@string/no"
+            android:backgroundTint="@color/mainColor"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/medium"
+            android:textColor="@color/white"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

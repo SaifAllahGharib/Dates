@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="25dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="120dp">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEdit"
+        android:text="@string/edit"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="@color/mainColor"
+        android:fontFamily="@font/medium"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
+        android:text="@string/delete"
+        android:backgroundTint="#FD5959"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/medium"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

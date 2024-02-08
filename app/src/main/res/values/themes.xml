@@ -1,0 +1,37 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Dates" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:statusBarColor">@color/Light</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:colorPrimary">@color/mainColor</item>
+    </style>
+
+    <style name="Theme.Dates" parent="Base.Theme.Dates" />
+
+    <style name="CustomAlert" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_signup_connection</item>
+    </style>
+
+    <style name="CustomEditText" parent="">
+        <item name="colorPrimary">@color/mainColor</item>
+        <item name="colorControlActivated">@color/mainColor</item>
+        <item name="cursorColor">@color/mainColor</item>
+        <item name="android:textColorHighlight">#57FFFFFF</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="CustomMaterialDatePickerTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorPrimary">@color/mainColor</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="CustomMaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="colorPrimary">@color/mainColor</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+</resources>
