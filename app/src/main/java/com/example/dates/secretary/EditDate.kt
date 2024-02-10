@@ -55,6 +55,7 @@ class EditDate : AppCompatActivity() {
         val person = intent.getStringExtra("person")!!
         val topic = intent.getStringExtra("topic")!!
         val address = intent.getStringExtra("address")!!
+        val note = intent.getStringExtra("note")
 
         topicTextInput = binding.topic
         addressTextInput = binding.address
@@ -216,6 +217,7 @@ class EditDate : AppCompatActivity() {
         binding.topic.editText!!.setText(topic)
         binding.address.editText!!.setText(address)
         binding.person.editText!!.setText(person)
+        binding.note.setText(note)
 
         binding.date.setOnClickListener {
             openDialogDate()
@@ -235,7 +237,8 @@ class EditDate : AppCompatActivity() {
                     binding.topic.editText!!.text.toString(),
                     type,
                     binding.address.editText!!.text.toString(),
-                    status
+                    status,
+                    binding.note.text.toString()
                 )
 
                 binding.prog.visibility = View.VISIBLE

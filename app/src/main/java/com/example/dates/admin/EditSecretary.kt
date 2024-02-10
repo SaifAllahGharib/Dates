@@ -116,7 +116,7 @@ class EditSecretary : AppCompatActivity() {
             }
         }
 
-        viewModel.defaultResponse.observe(this) { response ->
+        viewModel.updateAndDeleteSecretaryResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
                 if (res.message == "User updated.") {

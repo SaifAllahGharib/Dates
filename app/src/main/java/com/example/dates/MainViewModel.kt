@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dates.model.DateResponse
 import com.example.dates.model.DefaultResponse
-import com.example.dates.model.ManagerFromSecretaryResponse
 import com.example.dates.model.ManagersResponse
+import com.example.dates.model.SecretaryManagers
 import com.example.dates.model.SecretaryResponse
 import com.example.dates.model.UserManagerResponse
 import com.example.dates.model.UserSecretaryResponse
@@ -17,19 +17,24 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val defaultResponse: MutableLiveData<Response<DefaultResponse>> =
         MutableLiveData()
+    val updateAndDeleteManagerResponse: MutableLiveData<Response<DefaultResponse>> =
+        MutableLiveData()
+    val updateAndDeleteSecretaryResponse: MutableLiveData<Response<DefaultResponse>> =
+        MutableLiveData()
     val userSecretaryResponse: MutableLiveData<Response<UserSecretaryResponse>> = MutableLiveData()
     val userManagerResponse: MutableLiveData<Response<UserManagerResponse>> = MutableLiveData()
     val managersResponse: MutableLiveData<Response<ManagersResponse>> = MutableLiveData()
     val secretaryResponse: MutableLiveData<Response<SecretaryResponse>> = MutableLiveData()
-    val secretaryManagersResponse: MutableLiveData<Response<ManagerFromSecretaryResponse>> =
-        MutableLiveData()
     val secretaryDatesResponse: MutableLiveData<Response<DateResponse>> =
+        MutableLiveData()
+    val secretaryManagersResponse: MutableLiveData<Response<SecretaryManagers>> =
         MutableLiveData()
 
 
     fun signupManager(
         idSecretary: Int,
-        idAdmin: Int, name: String,
+        idAdmin: Int,
+        name: String,
         email: String,
         password: String
     ) {
@@ -63,32 +68,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun deleteManager(id: Int) {
         viewModelScope.launch {
             val response = repository.deleteManager(id)
-            defaultResponse.value = response
+            updateAndDeleteManagerResponse.value = response
         }
     }
 
     fun editManager(id: Int, name: String, email: String, password: String) {
         viewModelScope.launch {
             val response = repository.editManager(id, name, email, password)
-            defaultResponse.value = response
-        }
-    }
-
-    fun deleteManagerToSecretarySingle(
-        idManager: Int
-    ) {
-        viewModelScope.launch {
-            val response = repository.deleteManagerToSecretarySingle(idManager)
-            defaultResponse.value = response
-        }
-    }
-
-    fun getManagersFromSecretary(
-        idSecretary: Int
-    ) {
-        viewModelScope.launch {
-            val response = repository.getManagersFromSecretary(idSecretary)
-            secretaryManagersResponse.value = response
+            updateAndDeleteManagerResponse.value = response
         }
     }
 
@@ -112,6 +99,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun getSecretaryManagers(idSecretary: Int) {
+        viewModelScope.launch {
+            val response = repository.getSecretaryManagers(idSecretary)
+            secretaryManagersResponse.value = response
+        }
+    }
+
     fun loginAdmin(email: String, password: String) {
         viewModelScope.launch {
             val response = repository.loginAdmin(email, password)
@@ -129,23 +123,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun deleteSecretary(id: Int) {
         viewModelScope.launch {
             val response = repository.deleteSecretary(id)
-            defaultResponse.value = response
+            updateAndDeleteSecretaryResponse.value = response
         }
     }
 
     fun editSecretary(id: Int, name: String, email: String, password: String) {
         viewModelScope.launch {
             val response = repository.editSecretary(id, name, email, password)
-            defaultResponse.value = response
-        }
-    }
-
-    fun deleteSecretaryToSecretarySingle(
-        idSecretary: Int
-    ) {
-        viewModelScope.launch {
-            val response = repository.deleteSecretaryToSecretarySingle(idSecretary)
-            defaultResponse.value = response
+            updateAndDeleteSecretaryResponse.value = response
         }
     }
 
@@ -157,6 +142,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         inOrOut: String,
         address: String,
         status: String,
+        note: String,
         idManager: Int,
         idSecretary: Int
     ) {
@@ -169,6 +155,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 inOrOut,
                 address,
                 status,
+                note,
                 idManager,
                 idSecretary
             )
@@ -198,11 +185,22 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         topic: String,
         inOrOut: String,
         address: String,
-        completed: String
+        completed: String,
+        note: String
     ) {
         viewModelScope.launch {
             val response =
-                repository.updateDate(id, date, time, person, topic, inOrOut, address, completed)
+                repository.updateDate(
+                    id,
+                    date,
+                    time,
+                    person,
+                    topic,
+                    inOrOut,
+                    address,
+                    completed,
+                    note
+                )
             defaultResponse.value = response
         }
     }

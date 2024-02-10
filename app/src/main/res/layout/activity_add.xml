@@ -237,31 +237,19 @@
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
                 android:id="@+id/note"
                 android:layout_marginTop="10dp"
-                app:hintEnabled="false"
-                android:layout_gravity="right"
-                app:boxStrokeErrorColor="@color/red"
-                app:startIconDrawable="@drawable/notes"
-                app:startIconTint="@color/mainColor"
-                app:cursorColor="@color/mainColor"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:theme="@style/CustomEditText"
+                android:hint="@string/note"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/white"
+                android:padding="15dp"
+                android:textColorHighlight="#6ABDBDBD"
+                android:fontFamily="@font/regular"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:background="@drawable/custom_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="RtlHardcoded">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/textinputstyle"
-                    android:fontFamily="@font/regular"
-                    android:hint="@string/note"
-                    android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/gray" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="200dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"

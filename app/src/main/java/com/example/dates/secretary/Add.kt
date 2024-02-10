@@ -59,11 +59,11 @@ class Add : AppCompatActivity() {
         personTextInput = binding.person
         managers = ArrayList()
         isConnected = NetworkConnection(this)
-        dialog = CustomDialog(this, view, R.style.CustomAlert)
         repository = Repository()
         viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         view = layoutInflater.inflate(R.layout.signup_connection, null)
+        dialog = CustomDialog(this, view, R.style.CustomAlert)
         textWatcher = TextWatcher()
 
         topicTextInput.editText!!.addTextChangedListener(
@@ -228,16 +228,17 @@ class Add : AppCompatActivity() {
         }
 
         if (isConnected.isInternetAvailable() && idSecretary != 0) {
-            viewModel.getManagersFromSecretary(idSecretary)
+            viewModel.getSecretaryManagers(idSecretary)
         }
 
         viewModel.secretaryManagersResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
 
-                if (res.message == "User exists.") {
-                    for (item in res.user) {
-                        managers.add(item.name_manager)
+                if (res.message == "Managers geted") {
+
+                    for (manager in res.manager) {
+                        managers.add(manager.name)
                     }
 
                     binding.manager.setAdapter(
@@ -249,10 +250,9 @@ class Add : AppCompatActivity() {
                     )
                 }
             } else {
-                Toast.makeText(this, "فشل في جلب البيانات.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
             }
         }
-
 
         binding.manager.setDropDownBackgroundDrawable(
             ResourcesCompat.getDrawable(
@@ -274,7 +274,7 @@ class Add : AppCompatActivity() {
 
                 if (res.message == "User exists.") {
                     idManager = res.user[0].id
-                    viewModel.getAllDateToSecretary(idManager)
+//                    viewModel.getAllDateToSecretary(idManager)
                 } else if (res.message == "User not exists.") {
                     Toast.makeText(this, "هذا المدير غير متاح", Toast.LENGTH_SHORT).show()
                 }
@@ -301,6 +301,7 @@ class Add : AppCompatActivity() {
             val person = personTextInput.editText!!.text.toString()
             val topic = topicTextInput.editText!!.text.toString()
             val address = addressTextInput.editText!!.text.toString()
+            val note: String = binding.note.text.toString()
 
             if (isConnected.isInternetAvailable()) {
                 if (idManager != 0 && idSecretary != 0) {
@@ -312,6 +313,7 @@ class Add : AppCompatActivity() {
                         type,
                         address,
                         status,
+                        note,
                         idManager,
                         idSecretary
                     )

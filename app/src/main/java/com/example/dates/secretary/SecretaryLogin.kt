@@ -48,7 +48,7 @@ class SecretaryLogin : AppCompatActivity() {
         emailTextInput = binding.email
         passTextInput = binding.pass
         isConnected = NetworkConnection(this)
-        editor = StoreToSharedPreferences(this, "login-status-manager").editor()
+        editor = StoreToSharedPreferences(this, "login-status-secretary").editor()
         repository = Repository()
         viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
@@ -127,7 +127,7 @@ class SecretaryLogin : AppCompatActivity() {
                     this.emailTextInput.editText!!.setText("")
                     this.passTextInput.editText!!.setText("")
 
-                    startActivity(Intent(this, Dates::class.java))
+                    startActivity(Intent(this, AddDate::class.java))
                     finish()
                 }
             } else {

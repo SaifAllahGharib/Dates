@@ -86,14 +86,12 @@ class AccountManagerAdapter(
     }
 
     init {
-        viewModel.defaultResponse.observe(context as LifecycleOwner) { response ->
+        viewModel.updateAndDeleteManagerResponse.observe(context as LifecycleOwner) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
 
                 if (res.message == "User deleted.") {
                     Toast.makeText(context, "تم حذف المستخدم", Toast.LENGTH_SHORT).show()
-
-                    viewModel.deleteManagerToSecretarySingle(exId)
 
                     list.remove(user)
                     notifyDataSetChanged()

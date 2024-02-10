@@ -2,9 +2,8 @@ package com.example.dates.api
 
 import com.example.dates.model.DateResponse
 import com.example.dates.model.DefaultResponse
-import com.example.dates.model.ManagerFromSecretaryResponse
-import com.example.dates.model.Managers
 import com.example.dates.model.ManagersResponse
+import com.example.dates.model.SecretaryManagers
 import com.example.dates.model.SecretaryResponse
 import com.example.dates.model.UserManagerResponse
 import com.example.dates.model.UserSecretaryResponse
@@ -64,31 +63,6 @@ interface Api {
     ): Response<DefaultResponse>
 
     @FormUrlEncoded
-    @POST("getallmanageraddedtosecretary.php")
-    suspend fun getAllManagerToSecretary(
-        @Field("id_secretary") idSecretary: Int
-    ): Response<Managers>
-
-    @FormUrlEncoded
-    @POST("deletemanagertosecretary.php")
-    suspend fun deleteManagerToSecretary(
-        @Field("id_secretary") idSecretary: Int,
-        @Field("id_manager") idManager: Int
-    ): Response<DefaultResponse>
-
-    @FormUrlEncoded
-    @POST("deletemanagertosecretarysingel.php")
-    suspend fun deleteManagerToSecretarySingle(
-        @Field("id_manager") idManager: Int
-    ): Response<DefaultResponse>
-
-    @FormUrlEncoded
-    @POST("getmanagerfromsecretary.php")
-    suspend fun getManagersFromSecretary(
-        @Field("id_secretary") idSecretary: Int
-    ): Response<ManagerFromSecretaryResponse>
-
-    @FormUrlEncoded
     @POST("signupsecretary.php")
     suspend fun signupSecretary(
         @Field("id_admin") idAdmin: Int,
@@ -103,6 +77,12 @@ interface Api {
         @Field("email") email: String,
         @Field("password") password: String
     ): Response<UserSecretaryResponse>
+
+    @FormUrlEncoded
+    @POST("getsecretarymanagers.php")
+    suspend fun getSecretaryManagers(
+        @Field("id_secretary") idSecretary: Int
+    ): Response<SecretaryManagers>
 
     @FormUrlEncoded
     @POST("loginadmin.php")
@@ -128,12 +108,6 @@ interface Api {
     ): Response<DefaultResponse>
 
     @FormUrlEncoded
-    @POST("deletesecretarytosecretarysingel.php")
-    suspend fun deleteSecretaryToSecretarySingle(
-        @Field("id_secretary") idSecretary: Int
-    ): Response<DefaultResponse>
-
-    @FormUrlEncoded
     @POST("adddate.php")
     suspend fun addDate(
         @Field("ap_date") date: String,
@@ -143,6 +117,7 @@ interface Api {
         @Field("insideOrOutside") inOrOut: String,
         @Field("address") address: String,
         @Field("completed") status: String,
+        @Field("note") note: String,
         @Field("id_manager") idManager: Int,
         @Field("id_secretary") idSecretary: Int
     ): Response<DefaultResponse>
@@ -152,7 +127,7 @@ interface Api {
     suspend fun getAllDateToSecretary(@Field("id_manager") idManager: Int): Response<DateResponse>
 
     @FormUrlEncoded
-    @POST("deletedatesromsecretary.php")
+    @POST("deletedatesfromsecretary.php")
     suspend fun deleteDateFromSecretary(@Field("id") id: Int): Response<DefaultResponse>
 
     @FormUrlEncoded
@@ -165,6 +140,7 @@ interface Api {
         @Field("topic") topic: String,
         @Field("insideOrOutside") inOrOut: String,
         @Field("address") address: String,
-        @Field("completed") completed: String
+        @Field("completed") completed: String,
+        @Field("note") note: String
     ): Response<DefaultResponse>
 }

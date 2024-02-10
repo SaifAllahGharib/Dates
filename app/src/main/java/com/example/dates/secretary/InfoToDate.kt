@@ -25,6 +25,7 @@ class InfoToDate : AppCompatActivity() {
         binding.inOrOut.text = intent.getStringExtra("inOrOut")
         binding.address.text = intent.getStringExtra("address")
         binding.status.text = intent.getStringExtra("completed")
+        binding.note.text = intent.getStringExtra("note")
     }
 
     override fun onBackPressed() {

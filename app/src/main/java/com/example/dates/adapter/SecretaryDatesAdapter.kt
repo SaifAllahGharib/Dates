@@ -97,6 +97,7 @@ class SecretaryDatesAdapter(
             i.putExtra("inOrOut", dates.insideOrOutside)
             i.putExtra("address", dates.address)
             i.putExtra("completed", dates.completed)
+            i.putExtra("note", dates.note)
             context.startActivity(i)
             activity.finish()
         }

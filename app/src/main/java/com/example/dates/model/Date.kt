@@ -9,6 +9,7 @@ data class Date(
     val insideOrOutside: String,
     val address: String,
     val completed: String,
+    val note: String,
     val id_manager: Int,
     val id_secretary: Int
 )

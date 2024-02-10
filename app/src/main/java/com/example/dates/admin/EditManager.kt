@@ -117,7 +117,7 @@ class EditManager : AppCompatActivity() {
             }
         }
 
-        viewModel.defaultResponse.observe(this) { response ->
+        viewModel.updateAndDeleteManagerResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
                 if (res.message == "User updated.") {

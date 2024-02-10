@@ -29,7 +29,7 @@ import com.google.android.material.button.MaterialButton
 class AddDate : AppCompatActivity() {
     private lateinit var binding: ActivityAddDateBinding
     private lateinit var tabs: ArrayList<String>
-    private lateinit var sharedPreferencesLoginSwcretary: SharedPreferences.Editor
+    private lateinit var sharedPreferencesLoginSecretary: SharedPreferences.Editor
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var dialog: CustomDialog
     private lateinit var dialogConnection: CustomDialog
@@ -66,36 +66,36 @@ class AddDate : AppCompatActivity() {
         viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         tabs = arrayListOf("اليومي", "الاسبوعي", "الكل")
-        sharedPreferencesLoginSwcretary =
+        sharedPreferencesLoginSecretary =
             StoreToSharedPreferences(this, "login-status-secretary").editor()
         sharedPreferences = StoreToSharedPreferences(this, "login-status-secretary").getValues()
 
-        val idSecretary = sharedPreferences.getInt("id", 0)
+        val idSecretary: Int = sharedPreferences.getString("id", "")!!.toInt()
 
         if (isConnected.isInternetAvailable() && idSecretary != 0) {
-            viewModel.getManagersFromSecretary(idSecretary)
+            viewModel.getSecretaryManagers(idSecretary)
         }
 
         viewModel.secretaryManagersResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
 
-                if (res.message == "User exists.") {
-                    for (item in res.user) {
-                        managers.add(item.name_manager)
+                if (res.message == "Managers geted") {
+
+                    for (manager in res.manager) {
+                        managers.add(manager.name)
                     }
 
-                    val arrayAdapterManager =
+                    binding.manager.setAdapter(
                         ArrayAdapter(
                             this,
                             R.layout.dropdown_item,
                             managers
                         )
-
-                    binding.manager.setAdapter(arrayAdapterManager)
+                    )
                 }
             } else {
-                Toast.makeText(this, "فشل في جلب البيانات.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -210,7 +210,7 @@ class AddDate : AppCompatActivity() {
 
         binding.addDate.setOnClickListener {
             val i = Intent(this, Add::class.java)
-            i.putExtra("idSecretary", sharedPreferences.getInt("id", 0))
+            i.putExtra("idSecretary", idSecretary)
             startActivity(i)
             finish()
         }
@@ -222,10 +222,10 @@ class AddDate : AppCompatActivity() {
         dialog.view.findViewById<MaterialButton>(R.id.btnOk).setOnClickListener {
             startActivity(Intent(this, Welcome::class.java))
             finish()
-            sharedPreferencesLoginSwcretary.remove("login").apply()
-            sharedPreferencesLoginSwcretary.remove("id").apply()
-            sharedPreferencesLoginSwcretary.remove("name").apply()
-            sharedPreferencesLoginSwcretary.remove("email").apply()
+            sharedPreferencesLoginSecretary.remove("login").apply()
+            sharedPreferencesLoginSecretary.remove("id").apply()
+            sharedPreferencesLoginSecretary.remove("name").apply()
+            sharedPreferencesLoginSecretary.remove("email").apply()
         }
 
         dialog.view.findViewById<MaterialButton>(R.id.btnNo).setOnClickListener {

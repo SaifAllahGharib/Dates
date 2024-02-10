@@ -213,6 +213,20 @@
                     android:textColorHint="@color/gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <EditText
+                android:id="@+id/note"
+                android:layout_marginTop="10dp"
+                android:hint="@string/note"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/white"
+                android:padding="15dp"
+                android:textColorHighlight="#6ABDBDBD"
+                android:fontFamily="@font/regular"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:background="@drawable/custom_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -225,7 +239,7 @@
                     android:layout_marginTop="25dp"
                     android:backgroundTint="@color/mainColor"
                     android:fontFamily="@font/medium"
-                    android:text="@string/add"
+                    android:text="@string/edit"
                     android:textColor="@color/white"
                     android:visibility="gone" />
 

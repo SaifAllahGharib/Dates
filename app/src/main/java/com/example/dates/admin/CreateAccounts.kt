@@ -48,6 +48,8 @@ class CreateAccounts : AppCompatActivity() {
         binding = ActivityCreateAccountsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        list = ArrayList()
+        secretarys = ArrayList()
         nameTextInput = binding.name
         emailTextInput = binding.email
         passTextInput = binding.pass
@@ -59,6 +61,8 @@ class CreateAccounts : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         sharedPreferences = StoreToSharedPreferences(this, "login-status-admin").getValues()
         textWatcher = TextWatcher()
+
+        val adminId: Int = sharedPreferences.getString("id", "")!!.toInt()
 
         nameTextInput.editText!!.addTextChangedListener(
             textWatcher.textWatcherCreateAccounts(
@@ -122,6 +126,9 @@ class CreateAccounts : AppCompatActivity() {
 
         binding.type.setOnItemClickListener { parent, view, position, id ->
             type = parent.getItemAtPosition(position).toString()
+
+            list.clear()
+            secretarys.clear()
 
             if (type == "مدير") {
                 binding.secretaryTIL.visibility = View.VISIBLE
@@ -224,17 +231,17 @@ class CreateAccounts : AppCompatActivity() {
             val pass = passTextInput.editText!!.text.toString()
 
             if (isConnected.isInternetAvailable()) {
-                if (type == "مدير") {
+                if (type == "مدير" && adminId != 0) {
                     viewModel.signupManager(
-                        sharedPreferences.getInt("id", 0),
                         idSecretary,
+                        adminId,
                         name.trimStart().trimEnd(),
                         email.trimStart().trimEnd(),
                         pass
                     )
-                } else if (type == "مساعد") {
+                } else if (type == "مساعد" && adminId != 0) {
                     viewModel.signupSecretary(
-                        sharedPreferences.getInt("id", 0),
+                        adminId,
                         name.trimStart().trimEnd(),
                         email.trimStart().trimEnd(),
                         pass
@@ -249,6 +256,80 @@ class CreateAccounts : AppCompatActivity() {
                 binding.type.isEnabled = false
                 binding.pass.isEnabled = false
                 binding.btnSignup.isEnabled = false
+
+                if (type == "مدير") {
+                    viewModel.userManagerResponse.observe(this) { response ->
+                        if (response.isSuccessful) {
+                            val res = response.body()!!
+
+                            if (res.message == "User already exists.") {
+                                emailTextInput.editText!!.setText("")
+                                emailTextInput.editText!!.requestFocus()
+                                binding.prog.visibility = View.GONE
+                                emailTextInput.editText!!.error = "هذا الحساب موجود بالفعل"
+
+                                binding.back.isEnabled = true
+                                binding.email.isEnabled = true
+                                binding.name.isEnabled = true
+                                binding.type.isEnabled = true
+                                binding.pass.isEnabled = true
+                                binding.btnSignup.isEnabled = true
+                            } else if (res.message == "User created.") {
+                                binding.prog.visibility = View.GONE
+
+                                startActivity(Intent(this, Admin::class.java))
+                                finish()
+                            }
+                        } else {
+                            Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
+
+                            binding.prog.visibility = View.GONE
+
+                            binding.back.isEnabled = true
+                            binding.email.isEnabled = true
+                            binding.name.isEnabled = true
+                            binding.type.isEnabled = true
+                            binding.pass.isEnabled = true
+                            binding.btnSignup.isEnabled = true
+                        }
+                    }
+                } else if (type == "مساعد") {
+                    viewModel.userSecretaryResponse.observe(this) { response ->
+                        if (response.isSuccessful) {
+                            val res = response.body()!!
+
+                            if (res.message == "User already exists.") {
+                                emailTextInput.editText!!.setText("")
+                                emailTextInput.editText!!.requestFocus()
+                                binding.prog.visibility = View.GONE
+                                emailTextInput.editText!!.error = "هذا الحساب موجود بالفعل"
+
+                                binding.back.isEnabled = true
+                                binding.email.isEnabled = true
+                                binding.name.isEnabled = true
+                                binding.type.isEnabled = true
+                                binding.pass.isEnabled = true
+                                binding.btnSignup.isEnabled = true
+                            } else if (res.message == "User created.") {
+                                binding.prog.visibility = View.GONE
+
+                                startActivity(Intent(this, Admin::class.java))
+                                finish()
+                            }
+                        } else {
+                            Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
+
+                            binding.prog.visibility = View.GONE
+
+                            binding.back.isEnabled = true
+                            binding.email.isEnabled = true
+                            binding.name.isEnabled = true
+                            binding.type.isEnabled = true
+                            binding.pass.isEnabled = true
+                            binding.btnSignup.isEnabled = true
+                        }
+                    }
+                }
             } else {
                 dialog.view.findViewById<TextView>(R.id.textError).setText(R.string.no_connection)
                 dialog.showAlertDialog()
@@ -263,80 +344,6 @@ class CreateAccounts : AppCompatActivity() {
                 binding.type.isEnabled = true
                 binding.pass.isEnabled = true
                 binding.btnSignup.isEnabled = true
-            }
-        }
-
-        if (type == "مدير") {
-            viewModel.userManagerResponse.observe(this) { response ->
-                if (response.isSuccessful) {
-                    val res = response.body()
-
-                    if (res!!.message == "User already exists.") {
-                        emailTextInput.editText!!.setText("")
-                        emailTextInput.editText!!.requestFocus()
-                        binding.prog.visibility = View.GONE
-                        emailTextInput.editText!!.error = "هذا الحساب موجود بالفعل"
-
-                        binding.back.isEnabled = true
-                        binding.email.isEnabled = true
-                        binding.name.isEnabled = true
-                        binding.type.isEnabled = true
-                        binding.pass.isEnabled = true
-                        binding.btnSignup.isEnabled = true
-                    } else if (res.message == "User created.") {
-                        binding.prog.visibility = View.GONE
-
-                        startActivity(Intent(this, Admin::class.java))
-                        finish()
-                    }
-                } else {
-                    Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
-
-                    binding.prog.visibility = View.GONE
-
-                    binding.back.isEnabled = true
-                    binding.email.isEnabled = true
-                    binding.name.isEnabled = true
-                    binding.type.isEnabled = true
-                    binding.pass.isEnabled = true
-                    binding.btnSignup.isEnabled = true
-                }
-            }
-        } else {
-            viewModel.userSecretaryResponse.observe(this) { response ->
-                if (response.isSuccessful) {
-                    val res = response.body()
-
-                    if (res!!.message == "User already exists.") {
-                        emailTextInput.editText!!.setText("")
-                        emailTextInput.editText!!.requestFocus()
-                        binding.prog.visibility = View.GONE
-                        emailTextInput.editText!!.error = "هذا الحساب موجود بالفعل"
-
-                        binding.back.isEnabled = true
-                        binding.email.isEnabled = true
-                        binding.name.isEnabled = true
-                        binding.type.isEnabled = true
-                        binding.pass.isEnabled = true
-                        binding.btnSignup.isEnabled = true
-                    } else if (res.message == "User created.") {
-                        binding.prog.visibility = View.GONE
-
-                        startActivity(Intent(this, Admin::class.java))
-                        finish()
-                    }
-                } else {
-                    Toast.makeText(this, "حدث خطأ", Toast.LENGTH_SHORT).show()
-
-                    binding.prog.visibility = View.GONE
-
-                    binding.back.isEnabled = true
-                    binding.email.isEnabled = true
-                    binding.name.isEnabled = true
-                    binding.type.isEnabled = true
-                    binding.pass.isEnabled = true
-                    binding.btnSignup.isEnabled = true
-                }
             }
         }
     }

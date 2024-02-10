@@ -3,9 +3,8 @@ package com.example.dates.repository
 import com.example.dates.api.RetrofitInstance
 import com.example.dates.model.DateResponse
 import com.example.dates.model.DefaultResponse
-import com.example.dates.model.ManagerFromSecretaryResponse
-import com.example.dates.model.Managers
 import com.example.dates.model.ManagersResponse
+import com.example.dates.model.SecretaryManagers
 import com.example.dates.model.SecretaryResponse
 import com.example.dates.model.UserManagerResponse
 import com.example.dates.model.UserSecretaryResponse
@@ -59,31 +58,6 @@ class Repository {
         return RetrofitInstance.api.addManager(idSecretary, nameSecretary, idManager, nameManager)
     }
 
-    suspend fun getAllManagerToSecretary(
-        idSecretary: Int
-    ): Response<Managers> {
-        return RetrofitInstance.api.getAllManagerToSecretary(idSecretary)
-    }
-
-    suspend fun deleteManagerToSecretary(
-        idSecretary: Int,
-        idManager: Int
-    ): Response<DefaultResponse> {
-        return RetrofitInstance.api.deleteManagerToSecretary(idSecretary, idManager)
-    }
-
-    suspend fun deleteManagerToSecretarySingle(
-        idManager: Int
-    ): Response<DefaultResponse> {
-        return RetrofitInstance.api.deleteManagerToSecretarySingle(idManager)
-    }
-
-    suspend fun getManagersFromSecretary(
-        idSecretary: Int
-    ): Response<ManagerFromSecretaryResponse> {
-        return RetrofitInstance.api.getManagersFromSecretary(idSecretary)
-    }
-
     suspend fun signupSecretary(
         idAdmin: Int,
         name: String,
@@ -98,6 +72,12 @@ class Repository {
         password: String
     ): Response<UserSecretaryResponse> {
         return RetrofitInstance.api.loginSecretary(email, password)
+    }
+
+    suspend fun getSecretaryManagers(
+        idSecretary: Int,
+    ): Response<SecretaryManagers> {
+        return RetrofitInstance.api.getSecretaryManagers(idSecretary)
     }
 
     suspend fun loginAdmin(
@@ -124,12 +104,6 @@ class Repository {
         return RetrofitInstance.api.editSecretary(id, name, email, password)
     }
 
-    suspend fun deleteSecretaryToSecretarySingle(
-        idSecretary: Int
-    ): Response<DefaultResponse> {
-        return RetrofitInstance.api.deleteSecretaryToSecretarySingle(idSecretary)
-    }
-
     suspend fun addDate(
         date: String,
         time: String,
@@ -138,6 +112,7 @@ class Repository {
         inOrOut: String,
         address: String,
         status: String,
+        note: String,
         idManager: Int,
         idSecretary: Int
     ): Response<DefaultResponse> {
@@ -149,6 +124,7 @@ class Repository {
             inOrOut,
             address,
             status,
+            note,
             idManager,
             idSecretary
         )
@@ -170,7 +146,8 @@ class Repository {
         topic: String,
         inOrOut: String,
         address: String,
-        completed: String
+        completed: String,
+        note: String
     ): Response<DefaultResponse> {
         return RetrofitInstance.api.updateDate(
             id,
@@ -180,7 +157,8 @@ class Repository {
             topic,
             inOrOut,
             address,
-            completed
+            completed,
+            note
         )
     }
 }
