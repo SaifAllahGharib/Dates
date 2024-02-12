@@ -8,7 +8,7 @@
     tools:context=".fragment.Weekly">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weeklySecretaryRv"
+        android:id="@+id/weeklyDatesRv"
         android:visibility="gone"
         android:background="@color/Light"
         android:layout_width="match_parent"

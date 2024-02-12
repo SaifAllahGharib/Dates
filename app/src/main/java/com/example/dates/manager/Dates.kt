@@ -3,8 +3,12 @@ package com.example.dates.manager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.dates.R
+import com.example.dates.SearchViewModel
 import com.example.dates.Welcome
 import com.example.dates.adapter.ManagerViewPagerAdapter
 import com.example.dates.databinding.ActivityDatesBinding
@@ -23,6 +27,8 @@ class Dates : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDatesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val model = ViewModelProvider(this)[SearchViewModel::class.java]
 
         tabs = arrayListOf("اليومي", "الاسبوعي", "الكل")
         sharedPreferencesLoginAdmin =
@@ -45,6 +51,20 @@ class Dates : AppCompatActivity() {
 
         binding.signOut.setOnClickListener {
             dialog.showAlertDialog()
+        }
+
+        binding.search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                model.sendMessage(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.ad.setOnClickListener {
+            binding.search.clearFocus()
         }
 
         dialog.view.findViewById<MaterialButton>(R.id.btnOk).setOnClickListener {

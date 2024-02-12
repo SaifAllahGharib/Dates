@@ -25,7 +25,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val userManagerResponse: MutableLiveData<Response<UserManagerResponse>> = MutableLiveData()
     val managersResponse: MutableLiveData<Response<ManagersResponse>> = MutableLiveData()
     val secretaryResponse: MutableLiveData<Response<SecretaryResponse>> = MutableLiveData()
-    val secretaryDatesResponse: MutableLiveData<Response<DateResponse>> =
+    val datesResponse: MutableLiveData<Response<DateResponse>> =
         MutableLiveData()
     val secretaryManagersResponse: MutableLiveData<Response<SecretaryManagers>> =
         MutableLiveData()
@@ -166,7 +166,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getAllDateToSecretary(idManager: Int) {
         viewModelScope.launch {
             val response = repository.getAllDateToSecretary(idManager)
-            secretaryDatesResponse.value = response
+            datesResponse.value = response
         }
     }
 
@@ -202,6 +202,27 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     note
                 )
             defaultResponse.value = response
+        }
+    }
+
+    fun getDailyDate() {
+        viewModelScope.launch {
+            val response = repository.getDailyDate()
+            datesResponse.value = response
+        }
+    }
+
+    fun getWeeklyDate() {
+        viewModelScope.launch {
+            val response = repository.getWeeklyDate()
+            datesResponse.value = response
+        }
+    }
+
+    fun getAllDate() {
+        viewModelScope.launch {
+            val response = repository.getAllDate()
+            datesResponse.value = response
         }
     }
 }

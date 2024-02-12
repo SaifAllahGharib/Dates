@@ -140,4 +140,13 @@ class SecretaryLogin : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if (binding.prog.visibility == View.GONE) {
+            startActivity(Intent(this, Welcome::class.java))
+            finish()
+        }
+    }
 }

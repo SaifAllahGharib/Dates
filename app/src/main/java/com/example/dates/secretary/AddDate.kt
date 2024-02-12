@@ -143,7 +143,7 @@ class AddDate : AppCompatActivity() {
             }
         }
 
-        viewModel.secretaryDatesResponse.observe(this) { response ->
+        viewModel.datesResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 val res = response.body()!!
 

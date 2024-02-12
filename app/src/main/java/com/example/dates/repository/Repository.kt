@@ -161,4 +161,16 @@ class Repository {
             note
         )
     }
+
+    suspend fun getDailyDate(): Response<DateResponse> {
+        return RetrofitInstance.api.getDailyDate()
+    }
+
+    suspend fun getWeeklyDate(): Response<DateResponse> {
+        return RetrofitInstance.api.getWeeklyDate()
+    }
+
+    suspend fun getAllDate(): Response<DateResponse> {
+        return RetrofitInstance.api.getAllDate()
+    }
 }

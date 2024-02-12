@@ -143,4 +143,13 @@ interface Api {
         @Field("completed") completed: String,
         @Field("note") note: String
     ): Response<DefaultResponse>
+
+    @GET("getmanagerdailydate.php")
+    suspend fun getDailyDate(): Response<DateResponse>
+
+    @GET("getmanagerweeklydate.php")
+    suspend fun getWeeklyDate(): Response<DateResponse>
+
+    @GET("getmanageralldate.php")
+    suspend fun getAllDate(): Response<DateResponse>
 }
